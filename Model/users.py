@@ -49,4 +49,3 @@ class Users(Entity):
             'password': str(self.password),
         })
         return data
-    
