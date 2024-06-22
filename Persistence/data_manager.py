@@ -1,7 +1,13 @@
 from Persistence.persistance_manager import IPersistenceManager
 import os
 import json
+from uuid import UUID
 
+class UUIDEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, UUID):
+            return str(obj)
+        return super().default(obj)
 
 class DataManager(IPersistenceManager):
     def __init__(self, filename="database.json"):
@@ -17,7 +23,7 @@ class DataManager(IPersistenceManager):
 
     def _write_data(self, data):
         with open(self.filename, 'w', encoding="utf-8") as f:
-            json.dump(data, f, indent=4)
+            json.dump(data, f, indent=4, cls=UUIDEncoder)  # Use custom encoder here
 
     def save(self, entity):
         data = self._read_data()
