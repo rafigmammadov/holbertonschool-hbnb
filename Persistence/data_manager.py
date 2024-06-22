@@ -2,11 +2,14 @@ from Persistence.persistance_manager import IPersistenceManager
 import os
 import json
 from uuid import UUID
+from datetime import datetime
 
 class UUIDEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, UUID):
             return str(obj)
+        elif isinstance(obj, datetime):
+            return obj.isoformat()
         return super().default(obj)
 
 class DataManager(IPersistenceManager):
