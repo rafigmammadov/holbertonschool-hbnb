@@ -6,8 +6,9 @@ import json
 
 
 class Country:
-    def __init__(self, name, cities):
+    def __init__(self, name, cities, country_code):
         self.name = name
+        self.country_code = country_code
         self.cities = []
 
     def add_city(self, city):
