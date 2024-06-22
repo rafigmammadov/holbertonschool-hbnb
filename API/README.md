@@ -9,8 +9,6 @@ Welcome to the API directory for the `holbertonschool-hbnb` project. This direct
 - [Amenity Management Endpoints](#amenity-management-endpoints)
 - [Places Management Endpoints](#places-management-endpoints)
 - [Review Management Endpoints](#review-management-endpoints)
-- [Testing](#testing)
-- [Documentation](#documentation)
 
 ## User Management Endpoints
 
