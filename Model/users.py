@@ -2,13 +2,13 @@
 """
 Module that contains Users Model
 """
-from entity import Entity
+from .entity import Entity
 import json
 
 
 class Users(Entity):
     def __init__(self, email, first_name, last_name, password):
-        super.__init__()
+        super().__init__()
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
