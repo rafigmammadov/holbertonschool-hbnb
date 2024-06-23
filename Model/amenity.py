@@ -8,7 +8,7 @@ import json
 
 class Amenity(Entity):
     def __init__(self, name, description):
-        super.__init__()
+        super().__init__()
         self.name = name
         self.description = description
 
