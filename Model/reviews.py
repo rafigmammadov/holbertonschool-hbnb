@@ -2,7 +2,7 @@
 """
 Module that contains Reviews Model
 """
-from entity import Entity
+from .entity import Entity
 import json
 
 
