@@ -35,7 +35,7 @@ Please check the UML diagram for a visual representation of the HBnB API archite
 
 ```bash
 git clone https://github.com/rafigmammadov/holbertonschool-hbnb
-cd HBnB-API
+cd holbertonschool-hbnb
 ```
 
 ### Install Dependencies
