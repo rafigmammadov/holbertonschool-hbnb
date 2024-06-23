@@ -1,23 +1,23 @@
 from flask import Flask, request, jsonify
-from flask_restx import Api, Resource, fields
+from flask_restx import Api, Resource, fields, Namespace
 from Model.users import Users
 from Persistence.data_manager import DataManager
 
 app = Flask(__name__)
 api = Api(app, version='1.0', title='User API', description='A simple User API')
 
-ns_users = api.namespace('users', description='User operations')
+ns_users = Namespace('users', description='User operations')
 
 data_manager = DataManager("database.json")
 
-user_request_model = api.model('UserRequest', {
+user_request_model = ns_users.model('UserRequest', {
     'email': fields.String(required=True, description='The user email'),
     'first_name': fields.String(required=True, description='The user first name'),
     'last_name': fields.String(required=True, description='The user last name'),
     'password': fields.String(required=True, description='The user password')
 })
 
-user_response_model = api.model('UserResponse', {
+user_response_model = ns_users.model('UserResponse', {
     'id': fields.String(description='The user unique identifier'),
     'email': fields.String(description='The user email'),
     'first_name': fields.String(description='The user first name'),
@@ -111,5 +111,5 @@ class User(Resource):
         return '', 204
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
