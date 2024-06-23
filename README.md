@@ -15,6 +15,7 @@ The HBnB API is a RESTful API for managing user bookings for accommodations and 
 Explore the API endpoints using tools like Postman or directly through your browser. API documentation (Swagger UI) is available at http://localhost:5000/swagger after starting the application.
 
 Example for it:
+
 ![jpeg](media/SwaggerUI.png)
 
 ## UML Diagram
@@ -55,6 +56,6 @@ Contributions are welcome! Please fork the repository and create a pull request.
 
 ### Authors
 
-Rafig Mammadov
-Amina Jabbarova
-Rufat Jabbarov
+- **Rafig Mammadov**
+- **Amina Jabbarova**
+- **Rufat Jabbarov**
