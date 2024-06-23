@@ -2,7 +2,7 @@
 """
 Module that contains Place Model
 """
-from entity import Entity
+from .entity import Entity
 import json
 
 
