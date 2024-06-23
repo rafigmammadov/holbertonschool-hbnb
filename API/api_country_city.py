@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_restx import Api, Resource, fields
+from flask_restx import Api, Resource, fields, Namespace
 from Model.country import Country
 from Model.city import City
 from Persistence.data_manager import DataManager
@@ -15,30 +15,30 @@ def load_iso_3166_1_data(filepath):
     with open(filepath, 'r') as file:
         return json.load(file)
 
+ns_country = Namespace('countries', description='Country related operations')
+ns_city = Namespace('cities', description='City related operations')
+
 iso_3166_1_data = load_iso_3166_1_data('countries.json')
 countries = {code: Country(code, name) for code, name in iso_3166_1_data.items()}
 cities = []
 
-country_response_model = api.model('Country', {
+country_response_model = ns_country.model('Country', {
     'name': fields.String(required=True, description='Name of the country'),
     'country_code': fields.String(required=True, description='Code of the country')
 })
 
-city_request_model = api.model('CityRequest', {
+city_request_model = ns_city.model('CityRequest', {
     'country': fields.String(required=True, description='Code of the country'),
     'name': fields.String(required=True, description='Name of the country')
 })
 
-city_response_model = api.model('CityResponse', {
+city_response_model = ns_city.model('CityResponse', {
     'id': fields.String(description='The user unique identifier'),
     'name': fields.String(required=True, description='Name of the city'),
     'country': fields.String(required=True, description='Country code of the city'),
     'created_at': fields.String(description='The user creation timestamp'),
     'updated_at': fields.String(description='The user update timestamp')
 })
-
-ns_country = api.namespace('countries', description='Country related operations')
-ns_city = api.namespace('cities', description='City related operations')
 
 @ns_country.route('/')
 class CountryList(Resource):
@@ -146,7 +146,7 @@ class CityOperationsID(Resource):
         if not city:
             api.abort(404, "City not found.")
 
-        data_manager.delete(city_id, 'City')
+        data_manager.delete(city_id, 'Users')
         return '', 204
 
 if __name__ == "__main__":
