@@ -8,17 +8,16 @@ def load_iso_3166_1_data(filepath):
     with open(filepath, 'r') as file:
         return json.load(file)
 
-iso_3166_1_data = load_iso_3166_1_data('iso_3166_1.json')
-
+iso_3166_1_data = load_iso_3166_1_data('countries.json')
 
 
 class Country:
-    def __init__(self, name, country_code):
+    def __init__(self, country_code, name):
         if country_code not in iso_3166_1_data:
             raise ValueError(f"Invalid country code: {country_code}")
 
+        self.country_code = country_code
         self.name = name
-        self.country_code = iso_3166_1_data[country_code]
         self.cities = []
 
     def add_city(self, city):

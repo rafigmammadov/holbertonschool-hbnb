@@ -2,13 +2,13 @@
 """
 Module that contains City Model
 """
-from entity import Entity
+from .entity import Entity
 import json
 
 
 class City(Entity):
     def __init__(self, country, name):
-        super.__init__()
+        super().__init__()
         self.country = country
         self.name = name
 

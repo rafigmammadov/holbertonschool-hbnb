@@ -10,7 +10,7 @@ class Place(Entity):
     def __init__(self, name, description, address, city_id, latitude,
                  longitude, host_id, number_of_rooms, bathrooms,
                  price_per_night, max_guests, amenities):
-        super.__init__()
+        super().__init__()
         self.name = name
         self.description = description
         self.address = address
