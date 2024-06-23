@@ -77,3 +77,11 @@ class DataManager(IPersistenceManager):
         else:
             raise ValueError(f"Entity of type {entity_type} "
                              f"with id {entity_id} not found")
+    
+    def get_by_field(self, field, value, entity_type):
+        data = self._read_data()
+        if entity_type in data:
+            for entity_id, entity in data[entity_type].items():
+                if entity.get(field) == value:
+                    return entity
+        return None
