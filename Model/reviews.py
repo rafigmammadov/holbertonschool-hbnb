@@ -15,9 +15,9 @@ class Reviews(Entity):
         self.comment = comment
 
     def __repr__(self):
-        return (f"Reviews(id={self.id}, place_id='{self.place_id}'"
-                f"user_id='{self.user_id}', "
-                f"rating='{self.rating}', comment={self.comment})")
+        return (f"Reviews(id={self.id}, place_id='{self.place_id}', "
+                f"user_id='{self.user_id}', rating={self.rating}, "
+                f"comment='{self.comment}')")
 
     def save(self):
         try:
@@ -27,13 +27,13 @@ class Reviews(Entity):
         except FileNotFoundError:
             data = {}  # If file not found, start with an empty dictionary
 
-        # Get the list of users, or initialize an empty list if not present
+        # Get the list of reviews, or initialize an empty list if not present
         reviews = data.get('reviews', [])
 
-        # Convert the current user instance to a dict and add it to the list
+        # Convert the current review instance to a dict and add it to the list
         reviews.append(self.to_dict())
 
-        # Update the data dictionary with the new list of places
+        # Update the data dictionary with the new list of reviews
         data['reviews'] = reviews
 
         # Save the updated data back to the file
@@ -49,3 +49,4 @@ class Reviews(Entity):
             'comment': self.comment,
         })
         return data
+

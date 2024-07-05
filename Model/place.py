@@ -25,16 +25,13 @@ class Place(Entity):
         self.amenities = amenities
 
     def __repr__(self):
-        return (f"Place(id={self.id}, name='{self.name}'"
+        return (f"Place(id={self.id}, name='{self.name}', "
                 f"description='{self.description}', "
                 f"address='{self.address}', city_id={self.city_id}, "
-                f"latitude={self.latitude}, "
-                f"longitude={self.longitude}, host_id={self.host_id}, "
-                f"number_of_rooms={self.number_of_rooms}, "
-                f"bathrooms={self.bathrooms}, "
-                f"price_per_night={self.price_per_night}, "
-                f"max_guests={self.max_guests}, "
-                f"amenities={self.amenities})")
+                f"latitude={self.latitude}, longitude={self.longitude}, "
+                f"host_id={self.host_id}, number_of_rooms={self.number_of_rooms}, "
+                f"bathrooms={self.bathrooms}, price_per_night={self.price_per_night}, "
+                f"max_guests={self.max_guests}, amenities={self.amenities})")
 
     def save(self):
         try:
@@ -74,3 +71,4 @@ class Place(Entity):
             'amenities': self.amenities
         })
         return data
+

@@ -1,16 +1,15 @@
 #!/usr/bin/python3
 """
 Base class for all entities in the application. This class provides
-    common attributes and methods that are shared across different models.
+common attributes and methods that are shared across different models.
 
-    Attributes:
-        id (UUID): A unique identifier for the entity, generated using UUID4 to ensure global uniqueness.
-        created_at (datetime): The timestamp when the entity was created.
-        updated_at (datetime): The timestamp when the entity was last updated.
+Attributes:
+    id (UUID): A unique identifier for the entity, generated using UUID4 to ensure global uniqueness.
+    created_at (datetime): The timestamp when the entity was created.
+    updated_at (datetime): The timestamp when the entity was last updated.
 """
 import uuid
 from datetime import datetime, timedelta, timezone
-
 
 class Entity:
     def __init__(self):
@@ -40,3 +39,4 @@ class Entity:
             'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat()
         }
+
