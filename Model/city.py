@@ -1,45 +1,31 @@
-#!/usr/bin/python3
-"""
-Module that contains City Model
-"""
-from .entity import Entity
-import json
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from app import db  # Assuming 'db' is your SQLAlchemy instance
 
+Base = declarative_base()
 
-class City(Entity):
+class City(Base):
+    __tablename__ = 'cities'
+
+    id = Column(Integer, primary_key=True)
+    country = Column(String(255), nullable=False)
+    name = Column(String(255), nullable=False)
+
     def __init__(self, country, name):
-        super().__init__()
         self.country = country
         self.name = name
 
     def __repr__(self):
-        return (f"City(country={self.country}, name='{self.name}')")
+        return f"<City(id={self.id}, country={self.country}, name='{self.name}')>"
 
     def save(self):
-        try:
-            # Load existing data from the file
-            with open('data.json', 'r') as f:
-                data = json.load(f)
-        except FileNotFoundError:
-            data = {}  # If file not found, start with an empty dictionary
-
-        # Get the list of users, or initialize an empty list if not present
-        city = data.get('city', [])
-
-        # Convert the current user instance to a dict and add it to the list
-        city.append(self.to_dict())
-
-        # Update the data dictionary with the new list of places
-        data['city'] = city
-
-        # Save the updated data back to the file
-        with open('data.json', 'w') as f:
-            json.dump(data, f, indent=4)
+        db.session.add(self)
+        db.session.commit()
 
     def to_dict(self):
-        data = super().to_dict()
-        data.update({
+        return {
+            'id': self.id,
             'country': self.country,
             'name': self.name
-        })
-        return data
+        }
+
