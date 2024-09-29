@@ -23,8 +23,8 @@ review_response_model = ns_reviews.model('ReviewResponse', {
     'user_id': fields.String(description='ID of the user writing the review'),
     'rating': fields.Integer(description='Rating of the place (1-5)'),
     'comment': fields.String(description='Comment about the place'),
-    'created_at': fields.String(description='Review creation timestamp'),
-    'updated_at': fields.String(description='Review update timestamp')
+    'created_at': fields.DateTime(description='Review creation timestamp'),
+    'updated_at': fields.DateTime(description='Review update timestamp')
 })
 
 @ns_reviews.route('/places/<string:place_id>/reviews')
@@ -33,6 +33,7 @@ class PlaceReviews(Resource):
     @ns_reviews.expect(review_request_model)
     @ns_reviews.marshal_with(review_response_model, code=201)
     def post(self, place_id):
+        """Create a new review for a place"""
         data = request.get_json()
         try:
             user_id = data['user_id']
@@ -59,6 +60,7 @@ class PlaceReviews(Resource):
     @ns_reviews.doc('get_place_reviews')
     @ns_reviews.marshal_list_with(review_response_model)
     def get(self, place_id):
+        """Get all reviews for a place"""
         reviews = []
         reviews_data = data_manager.get_by_field('place_id', place_id, 'Reviews')
         if reviews_data:
@@ -70,6 +72,7 @@ class UserReviews(Resource):
     @ns_reviews.doc('get_user_reviews')
     @ns_reviews.marshal_list_with(review_response_model)
     def get(self, user_id):
+        """Get all reviews by a user"""
         reviews = []
         reviews_data = data_manager.get_by_field('user_id', user_id, 'Reviews')
         if reviews_data:
@@ -83,6 +86,7 @@ class Review(Resource):
     @ns_reviews.doc('get_review')
     @ns_reviews.marshal_with(review_response_model)
     def get(self, review_id):
+        """Get a specific review by ID"""
         review = data_manager.get(review_id, 'Reviews')
         if review:
             return review, 200
@@ -93,6 +97,7 @@ class Review(Resource):
     @ns_reviews.expect(review_request_model)
     @ns_reviews.marshal_with(review_response_model)
     def put(self, review_id):
+        """Update a review by ID"""
         data = request.get_json()
         try:
             review = data_manager.get(review_id, 'Reviews')
@@ -114,6 +119,7 @@ class Review(Resource):
     @ns_reviews.doc('delete_review')
     @ns_reviews.response(204, 'Review deleted')
     def delete(self, review_id):
+        """Delete a review by ID"""
         review = data_manager.get(review_id, 'Reviews')
         if not review:
             api.abort(404, "Review not found.")
@@ -125,3 +131,4 @@ api.add_namespace(ns_reviews)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
